@@ -41,7 +41,7 @@ public class MyPlatformManager {
     protected long end;
     protected SynthDB writer;
     protected MyApplication c;
-    
+
     /**
      * Create new instance of MyPlatformManager
      *
@@ -49,7 +49,7 @@ public class MyPlatformManager {
      */
     public MyPlatformManager(Graph graph) {
         this.graph = graph;
-        this.writer = new SynthDB();    
+        this.writer = new SynthDB();
         this.start = System.currentTimeMillis();
         // Get a hold on JADE runtime
         // Create a default profile
@@ -71,7 +71,7 @@ public class MyPlatformManager {
             Logger.getLogger(MyPlatformManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     /**
      * Execute the JADE containers and starts all agents of the network
      */
@@ -107,23 +107,24 @@ public class MyPlatformManager {
      * Stop the execution of the JADE platform
      */
     public void halt() {
-            //mainContainer.getPlatformController().kill();
-            this.writer.close();
-            System.out.println(" - Exit..... ");
-            this.end = System.currentTimeMillis();
-            System.out.println(" - time elapsed (msec): " + (end - start));
-            if (Config.instance().isGuiEnabled()) {
-                JOptionPane.showMessageDialog(null, "Simulation finished!", "AML Ranking", JOptionPane.INFORMATION_MESSAGE);
-            }        
-            //System.exit(0);            
-            c.halt();
+        //mainContainer.getPlatformController().kill();
+        Runtime.instance().shutDown();
+        this.writer.close();
+        System.out.println(" - Exit..... ");
+        this.end = System.currentTimeMillis();
+        System.out.println(" - time elapsed (msec): " + (end - start));
+        if (Config.instance().isGuiEnabled()) {
+            JOptionPane.showMessageDialog(null, "Simulation finished!", "AML Ranking", JOptionPane.INFORMATION_MESSAGE);
+        }
+        //System.exit(0);            
+        c.halt();
     }
-    
+
     public void register(MyApplication c) {
         this.c = c;
     }
-    
-    public File getTransactionFile(){
+
+    public File getTransactionFile() {
         return new File(this.writer.getTransactionFilename());
     }
 }
