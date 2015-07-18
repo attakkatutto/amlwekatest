@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+
+<config>
+    <!--/*NETWORK CONFIG*/-->
+    <numberOfNode>50</numberOfNode>
+    <maxEdgesPerStep>3</maxEdgesPerStep>
+    <maxNumberPartners>5</maxNumberPartners>
+    <maxNumberParents>4</maxNumberParents>
+    <maxNumberDummies>3</maxNumberDummies>
+    <laundererPercentage>5</laundererPercentage>
+    <!--/*0:FIXED 1:VARIABLE/-->
+    <fraudPotential>0</fraudPotential>
+    <!--/*ENABLE GUI true/false*/-->
+    <guiEnabled>false</guiEnabled>
+    <!--/*NUMBER OF MESSAGES TO OTHER NODES*/-->
+    <employeeMessageMean>10</employeeMessageMean>
+    <employeeMessageStdDev>3</employeeMessageStdDev>
+    <freelanceMessageMean>30</freelanceMessageMean>
+    <freelanceMessageStdDev>8</freelanceMessageStdDev>
+    <smallCompanyMessageMean>500</smallCompanyMessageMean>
+    <smallCompanyMessageStdDev>50</smallCompanyMessageStdDev>
+    <bigCompanyMessageMean>700</bigCompanyMessageMean>
+    <bigCompanyMessageStdDev>80</bigCompanyMessageStdDev>
+    <!--/*HONEST*/-->    
+    <employeeMeanHonest>500</employeeMeanHonest>
+    <employeeStdDevHonest>50</employeeStdDevHonest>
+    <freelanceMeanHonest>900</freelanceMeanHonest>
+    <freelanceStdDevHonest>150</freelanceStdDevHonest>
+    <smallCompanyMeanHonest>2500</smallCompanyMeanHonest>
+    <smallCompanyStdDevHonest>250</smallCompanyStdDevHonest>
+    <bigCompanyMeanHonest>4100</bigCompanyMeanHonest>
+    <bigCompanyStdDevHonest>300</bigCompanyStdDevHonest>
+    <!--/*LAUNDERER*/-->
+    <employeeMeanLaunderer>900</employeeMeanLaunderer>
+    <employeeStdDevLaunderer>20</employeeStdDevLaunderer>
+    <freelanceMeanLaunderer>1500</freelanceMeanLaunderer>
+    <freelanceStdDevLaunderer>90</freelanceStdDevLaunderer>
+    <smallCompanyMeanLaunderer>3200</smallCompanyMeanLaunderer>
+    <smallCompanyStdDevLaunderer>180</smallCompanyStdDevLaunderer>
+    <bigCompanyMeanLaunderer>5000</bigCompanyMeanLaunderer>
+    <bigCompanyStdDevLaunderer>230</bigCompanyStdDevLaunderer>
+    <!--/*FRAUD PROBABILITY*/-->
+    <partnerProbability>0.5</partnerProbability>
+    <parentProbability>0.3</parentProbability>
+    <dummyProbability>1</dummyProbability>
+    <!--NUMBER OF WEKA EXECUTIONS-->
+    <numberWekaRuns>5</numberWekaRuns>
+    <!--/*PERIOD*/--> 
+    <!--/*NUMBER YEARS*/--> 
+    <yearsNumber>5</yearsNumber>
+    <!--/*WINDOW SIZE (IN MONTHS) FOR THE SCORES*/--> 
+    <!--/*2=BIMESTER 3=QUARTER 4=TRIMESTER 6=HALF 12=YEAR*/--> 
+    <windowSize>6</windowSize>
+    <!--/*WRITE DATA 1=FILE 2=DB 3=ALL*/--> 
+    <persistenceMode>1</persistenceMode>
+    <!--/*FILE*/-->
+    <fileNameTransaction>SYNTHETIC_%s.csv</fileNameTransaction>
+    <fileNameEntity>ENTITIES_%s.csv</fileNameEntity>
+    <!--/*DATABASE*/-->
+    <dataBaseUsername>sa</dataBaseUsername>
+    <dataBasePassword>password</dataBasePassword>
+    <dataBaseConnection>jdbc:derby://localhost:1527/synthetic</dataBaseConnection>
+    <dataBaseDriver>org.apache.derby.jdbc.ClientDriver</dataBaseDriver>
+</config>

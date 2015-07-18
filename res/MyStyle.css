@@ -1,0 +1,14 @@
+node {  fill-color: green; 
+        stroke-color: grey;
+        text-color: white;
+        text-style: bold;
+        stroke-mode: plain;
+        padding: 5px;
+        size-mode: fit; }
+
+node.person { shape: box; } 
+
+node.company { shape: circle; }
+
+edge { fill-color:darkgrey; }
+
