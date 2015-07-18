@@ -121,10 +121,7 @@ public class MyPlatformManager {
             Logger.getLogger(MyPlatformManager.class.getName()).log(Level.SEVERE, null, ex);
         }
         finally{
-            //System.exit(0);
-            mainContainer = null;
-            graph = null;
-            writer = null;
+            //System.exit(0);            
             c.halt();
         }
     }

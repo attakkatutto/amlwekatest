@@ -101,9 +101,7 @@ public final class MyWekaManager {
                 Logger.getLogger(MyWekaManager.class.getName()).log(Level.SEVERE, null, ex);
             }
             finally{
-                bwr=null;
-                instances.clear();
-                instances= null;
+                instances.clear();                
             }
         }
     }
