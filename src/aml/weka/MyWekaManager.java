@@ -20,6 +20,7 @@ import weka.classifiers.lazy.IBk;
 import weka.classifiers.trees.J48;
 import weka.core.Instances;
 import weka.core.converters.CSVLoader;
+import wlsvm.WLSVM;
 
 /**
  *
@@ -30,7 +31,7 @@ public final class MyWekaManager {
     private Instances instances;
     private int runs;
     private int folds;
-    private BufferedWriter bwr;    
+    private BufferedWriter bwr;
     private final String ROW_RESULT_FILE = " %s, %s, %s, %s, %s \n";
 
     public MyWekaManager(File dataset) {
@@ -74,6 +75,29 @@ public final class MyWekaManager {
         return _fMeasure / (runs * folds);
     }
 
+    public double crossValidationLibSVM() throws Exception {
+        double _fMeasure = 0;
+        WLSVM _svm = new WLSVM();
+        String[] _ops = {"-x", "10", "-i", "-S", "0", "-K", "2", "-D", "3", "-G", "0", "-R", "0", "-N", "0.5","-M", "40", "-C", "1", "-E", "0.001", "-P", "0.1","-seed","1"};
+        _svm.setOptions(_ops);
+        for (int run = 0; run < runs; run++) {
+            instances.stratify(folds);
+
+            for (int fold = 0; fold < folds; fold++) {
+                System.out.println(" run: " + run + " fold: " + fold);
+                Instances train = instances.trainCV(folds, fold);
+                Instances test = instances.testCV(folds, fold);
+
+                _svm.buildClassifier(train);
+                Evaluation evaluation = new Evaluation(train);
+                evaluation.evaluateModel(_svm, test);
+                _fMeasure += evaluation.fMeasure(1);
+            }
+        }
+
+        return _fMeasure / (runs * folds);
+    }
+
     private void createFile() throws IOException {
         /*Create the results file*/
         File filer = new File("." + File.separator + "dbfiles" + File.separator + "WEKA_RESULTS.CSV");
@@ -84,7 +108,8 @@ public final class MyWekaManager {
     public void test(String paramName, double paramValue) {
         try {
             double _dt = crossValidation(new J48(), null);
-            double _svm = crossValidation(new SMO(), null);
+            //double _svm = crossValidation(new SMO(), null);
+            double _svm = crossValidationLibSVM();
             double _knn = crossValidation(new IBk(), new String[]{"-K", "3"});
             writeResult(new Result(paramName, paramValue, _dt, _svm, _knn));
         } catch (Exception ex) {
@@ -99,9 +124,8 @@ public final class MyWekaManager {
                 bwr.close();
             } catch (IOException ex) {
                 Logger.getLogger(MyWekaManager.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            finally{
-                instances.clear();                
+            } finally {
+                instances.clear();
             }
         }
     }
