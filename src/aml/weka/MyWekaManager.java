@@ -78,7 +78,7 @@ public final class MyWekaManager {
     public double crossValidationLibSVM() throws Exception {
         double _fMeasure = 0;
         WLSVM _svm = new WLSVM();
-        String[] _ops = {"-x", "10", "-i", "-S", "0", "-K", "2", "-D", "3", "-G", "0", "-R", "0", "-N", "0.5","-M", "40", "-C", "1", "-E", "0.001", "-P", "0.1","-seed","1"};
+        String[] _ops = {"-S", "0", "-K", "2", "-D", "3", "-G", "0", "-R", "0", "-N", "0.5","-M", "40", "-C", "1", "-E", "0.001", "-P", "0.1","-seed","1"};
         _svm.setOptions(_ops);
         for (int run = 0; run < runs; run++) {
             instances.stratify(folds);
