@@ -107,17 +107,22 @@ public class MyPlatformManager {
      * Stop the execution of the JADE platform
      */
     public void halt() {
-        //mainContainer.getPlatformController().kill();
-        Runtime.instance().shutDown();
-        this.writer.close();
-        System.out.println(" - Exit..... ");
-        this.end = System.currentTimeMillis();
-        System.out.println(" - time elapsed (msec): " + (end - start));
-        if (Config.instance().isGuiEnabled()) {
-            JOptionPane.showMessageDialog(null, "Simulation finished!", "AML Ranking", JOptionPane.INFORMATION_MESSAGE);
+        try {
+            //mainContainer.getPlatformController().kill();
+            mainContainer.kill();
+            Runtime.instance().shutDown();
+            this.writer.close();
+            System.out.println(" - Exit..... ");
+            this.end = System.currentTimeMillis();
+            System.out.println(" - time elapsed (msec): " + (end - start));
+            if (Config.instance().isGuiEnabled()) {
+                JOptionPane.showMessageDialog(null, "Simulation finished!", "AML Ranking", JOptionPane.INFORMATION_MESSAGE);
+            }
+            //System.exit(0);
+            c.halt();
+        } catch (StaleProxyException ex) {
+            Logger.getLogger(MyPlatformManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //System.exit(0);            
-        c.halt();
     }
 
     public void register(MyApplication c) {
