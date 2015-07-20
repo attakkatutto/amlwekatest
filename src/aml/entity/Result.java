@@ -6,7 +6,7 @@
 package aml.entity;
 
 /**
- *
+ * WEKA result class
  * @author ddefalco
  */
 public class Result {
@@ -17,12 +17,23 @@ public class Result {
     private double svm;
     private double knn;
     
+    /**
+     * Constructor with no params
+     */
     public Result() {
         this.dt = 0;
         this.svm = 0;
         this.knn = 0;
     }
 
+    /**
+     * Constructor with params
+     * @param paramName parameter name 
+     * @param paramValue parameter value
+     * @param dt decision tree fmeasure
+     * @param svm support vector machine fmeasure
+     * @param knn k-nearest neighbour fmeasure
+     */
     public Result(String paramName, double paramValue, double dt, double svm, double knn) {
         this.paramName = paramName;
         this.paramValue = paramValue;

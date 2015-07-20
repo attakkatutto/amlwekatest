@@ -67,7 +67,7 @@ public class MyApplication {
 
     public void halt() {
         MyWekaManager weka = new MyWekaManager(file);
-        weka.test("Parent fraud probability", Config.instance().getParentProbability());
+        weka.calculateResults("Parent fraud probability", Config.instance().getParentProbability());
         if(COUNTER < MAX_COUNT) {
             COUNTER++;
             STEP+=0.01;
