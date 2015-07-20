@@ -121,8 +121,11 @@ public class MyPlatformManager {
         if (Config.instance().isGuiEnabled()) {
             JOptionPane.showMessageDialog(null, "Simulation finished!", "AML Ranking", JOptionPane.INFORMATION_MESSAGE);
         }
-        //System.exit(0);
-        c.halt();
+        //System.exit(0);       
+    }
+    
+    public void kill(){
+         c.halt();
     }
 
     public void register(MyApplication c) {
