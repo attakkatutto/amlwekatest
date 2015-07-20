@@ -76,9 +76,7 @@ public class MyPlatformListener
 
     @Override
     public void killedPlatform(PlatformEvent pe) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-         System.out.println(" - JADE platform killed! ");
-         subject.kill();
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.         
     }
 
 }
