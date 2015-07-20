@@ -59,19 +59,16 @@ public final class MyWekaManager {
         }
         for (int run = 0; run < runs; run++) {
             instances.stratify(folds);
-
             for (int fold = 0; fold < folds; fold++) {
                 System.out.println(" run: " + run + " fold: " + fold);
-                Instances train = instances.trainCV(folds, fold);
-                Instances test = instances.testCV(folds, fold);
-
-                classifier.buildClassifier(train);
-                Evaluation evaluation = new Evaluation(train);
-                evaluation.evaluateModel(classifier, test);
-                _fMeasure += evaluation.fMeasure(1);
+                Instances _train = instances.trainCV(folds, fold);
+                Instances _test = instances.testCV(folds, fold);
+                classifier.buildClassifier(_train);
+                Evaluation _evaluation = new Evaluation(_train);
+                _evaluation.evaluateModel(classifier, _test);                
+                _fMeasure += _evaluation.fMeasure(1);
             }
         }
-
         return _fMeasure / (runs * folds);
     }
 
