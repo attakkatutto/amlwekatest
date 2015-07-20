@@ -126,10 +126,19 @@ public class MyPlatformManager {
         c.halt();
     }
 
+    /**
+     * Register the MyApplication instance to notify when 
+     * the platform is halt
+     * @param c MyApplication to register
+     */
     public void register(MyApplication c) {
         this.c = c;
     }
 
+    /**
+     * Return the name of transaction file
+     * @return 
+     */
     public File getTransactionFile() {
         return new File(this.writer.getTransactionFilename());
     }

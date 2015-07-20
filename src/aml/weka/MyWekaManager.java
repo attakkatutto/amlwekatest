@@ -23,7 +23,7 @@ import weka.core.converters.CSVLoader;
 import wlsvm.WLSVM;
 
 /**
- *
+ * Class for manage WEKA with java code
  * @author ddefalco
  */
 public final class MyWekaManager {
@@ -34,6 +34,10 @@ public final class MyWekaManager {
     private BufferedWriter bwr;
     private final String ROW_RESULT_FILE = " %s, %s, %s, %s, %s \n";
 
+    /**
+     * Constructor with file that contains dataset
+     * @param dataset File with instances to analyze
+     */
     public MyWekaManager(File dataset) {
         try {
             this.runs = Config.instance().getNumberWekaRuns();
@@ -45,6 +49,11 @@ public final class MyWekaManager {
         }
     }
 
+    /**
+     * Load the instances of dataset
+     * @param dataset File contains data
+     * @throws Exception 
+     */
     public void loadInstances(File dataset) throws Exception {
         CSVLoader loader = new CSVLoader();
         loader.setSource(dataset);
@@ -52,6 +61,14 @@ public final class MyWekaManager {
         instances.setClassIndex(instances.numAttributes() - 1);
     }
 
+    /**
+     * WEKA cross validation classifier method that calculate the
+     * f-Measure of the model
+     * @param classifier Abstract classifier that build model
+     * @param options for the cassifier
+     * @return double fMeasure value
+     * @throws Exception 
+     */
     public double crossValidation(AbstractClassifier classifier, String[] options) throws Exception {
         double _fMeasure = 0;
         if (options != null) {
@@ -95,6 +112,10 @@ public final class MyWekaManager {
 //        return _fMeasure / (runs * folds);
 //    }
 
+    /**
+     * Create the file to write te results from WEKA
+     * @throws IOException 
+     */
     private void createFile() throws IOException {
         /*Create the results file*/
         File filer = new File("." + File.separator + "dbfiles" + File.separator + "WEKA_RESULTS.CSV");
@@ -102,10 +123,16 @@ public final class MyWekaManager {
         bwr = new BufferedWriter(fwr);
     }
 
-    public void test(String paramName, double paramValue) {
+    /**
+     * Calculate the f-Measure results from building models with
+     * J48 - SMO - IBK algorithms 
+     * @param paramName
+     * @param paramValue 
+     */
+    public void calculateResults(String paramName, double paramValue) {
         try {
             double _dt = crossValidation(new J48(), new String[]{"-C", "0.25", "-M", "2"});
-            double _svm = crossValidation(new SMO(), new String[]{"-C" ,"1.0", "-L", "0.001" ,"-P", "1.0E-12", "-N" ,"0", "-V" ,"-1", "-W", "1", "-K", "weka.classifiers.functions.supportVector.PolyKernel -E 1.0 -C 250007"});
+            double _svm = crossValidation(new SMO(), new String[]{"-K", "weka.classifiers.functions.supportVector.PolyKernel -E 1.0 -C 250007"});
             //double _svm = crossValidationLibSVM();
             double _knn = crossValidation(new IBk(), new String[]{"-K", "3", "-W", "0", "-A", "weka.core.neighboursearch.LinearNNSearch -A \"weka.core.EuclideanDistance -R first-last\""});
             writeResult(new Result(paramName, paramValue, _dt, _svm, _knn));
@@ -114,6 +141,10 @@ public final class MyWekaManager {
         }
     }
 
+    /**
+     * Write result instance to file
+     * @param r 
+     */
     private void writeResult(Result r) {
         if (bwr != null) {
             try {
