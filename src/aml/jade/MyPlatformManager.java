@@ -110,6 +110,7 @@ public class MyPlatformManager {
         try {
             //mainContainer.getPlatformController().kill();
             mainContainer.getPlatformController().kill();
+            //Runtime.instance().shutDown();
         } catch (ControllerException ex) {
             Logger.getLogger(MyPlatformManager.class.getName()).log(Level.SEVERE, null, ex);
         }

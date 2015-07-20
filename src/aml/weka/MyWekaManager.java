@@ -108,8 +108,8 @@ public final class MyWekaManager {
     public void test(String paramName, double paramValue) {
         try {
             double _dt = crossValidation(new J48(), null);
-            //double _svm = crossValidation(new SMO(), null);
-            double _svm = crossValidationLibSVM();
+            double _svm = crossValidation(new SMO(), null);
+            //double _svm = crossValidationLibSVM();
             double _knn = crossValidation(new IBk(), new String[]{"-K", "3"});
             writeResult(new Result(paramName, paramValue, _dt, _svm, _knn));
         } catch (Exception ex) {
