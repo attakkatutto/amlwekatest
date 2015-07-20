@@ -109,20 +109,20 @@ public class MyPlatformManager {
     public void halt() {
         try {
             //mainContainer.getPlatformController().kill();
-            mainContainer.kill();
-            Runtime.instance().shutDown();
-            this.writer.close();
-            System.out.println(" - Exit..... ");
-            this.end = System.currentTimeMillis();
-            System.out.println(" - time elapsed (msec): " + (end - start));
-            if (Config.instance().isGuiEnabled()) {
-                JOptionPane.showMessageDialog(null, "Simulation finished!", "AML Ranking", JOptionPane.INFORMATION_MESSAGE);
-            }
-            //System.exit(0);
-            c.halt();
-        } catch (StaleProxyException ex) {
+            mainContainer.getPlatformController().kill();
+        } catch (ControllerException ex) {
             Logger.getLogger(MyPlatformManager.class.getName()).log(Level.SEVERE, null, ex);
         }
+        Runtime.instance().shutDown();
+        this.writer.close();
+        System.out.println(" - Exit..... ");
+        this.end = System.currentTimeMillis();
+        System.out.println(" - time elapsed (msec): " + (end - start));
+        if (Config.instance().isGuiEnabled()) {
+            JOptionPane.showMessageDialog(null, "Simulation finished!", "AML Ranking", JOptionPane.INFORMATION_MESSAGE);
+        }
+        //System.exit(0);
+        c.halt();
     }
 
     public void register(MyApplication c) {
