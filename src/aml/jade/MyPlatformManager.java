@@ -113,7 +113,7 @@ public class MyPlatformManager {
         } catch (ControllerException ex) {
             Logger.getLogger(MyPlatformManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-        Runtime.instance().shutDown();
+        //Runtime.instance().shutDown();
         this.writer.close();
         System.out.println(" - Exit..... ");
         this.end = System.currentTimeMillis();
