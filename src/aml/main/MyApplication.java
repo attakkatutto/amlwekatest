@@ -28,13 +28,13 @@ public class MyApplication {
     
     public MyApplication(){}
           
-    public void exec(){
+    public void exec(double step){
         Network graph = new Network("AML Synthetic DB");
         if (Config.instance().isGuiEnabled()) {
             enableGUI(graph);
         }
         graph.build();
-        double p1 = Config.instance().getParentProbability() + STEP;
+        double p1 = Config.instance().getParentProbability() + step;
         Config.instance().setParentProbability(p1);
         MyPlatformManager f = new MyPlatformManager(graph);        
         f.register(this);
@@ -70,7 +70,8 @@ public class MyApplication {
         weka.test("Parent fraud probability", Config.instance().getParentProbability());
         if(COUNTER < MAX_COUNT) {
             COUNTER++;
-            exec();
+            STEP+=0.01;
+            exec(STEP);
         }
         else
         {

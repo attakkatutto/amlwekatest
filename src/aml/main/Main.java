@@ -20,7 +20,7 @@ public class Main {
     public static void main(String[] args) {
         // TODO code application logic here
         MyApplication ma = new MyApplication();
-        ma.exec();
+        ma.exec(0);
     }
     
 }
