@@ -13,6 +13,7 @@ and open the template in the editor.
     <maxNumberPartners>5</maxNumberPartners>
     <maxNumberParents>4</maxNumberParents>
     <maxNumberDummies>3</maxNumberDummies>
+    <!--P4 LAUNDERER PERCENTAGE-->
     <laundererPercentage>5</laundererPercentage>
     <!--/*0:FIXED 1:VARIABLE/-->
     <fraudPotential>0</fraudPotential>
@@ -45,7 +46,7 @@ and open the template in the editor.
     <smallCompanyStdDevLaunderer>180</smallCompanyStdDevLaunderer>
     <bigCompanyMeanLaunderer>5000</bigCompanyMeanLaunderer>
     <bigCompanyStdDevLaunderer>230</bigCompanyStdDevLaunderer>
-    <!--/*FRAUD PROBABILITY*/-->
+    <!--/*FRAUD PROBABILITY P1 - P2 - P3*/-->
     <parentProbability>0.8</parentProbability>
     <partnerProbability>0.5</partnerProbability>    
     <dummyProbability>1</dummyProbability>
