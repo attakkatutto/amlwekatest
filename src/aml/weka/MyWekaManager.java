@@ -6,7 +6,7 @@
 package aml.weka;
 
 import aml.entity.Result;
-import aml.global.Config;
+import static aml.global.Constant.*;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -20,7 +20,6 @@ import weka.classifiers.lazy.IBk;
 import weka.classifiers.trees.J48;
 import weka.core.Instances;
 import weka.core.converters.CSVLoader;
-import wlsvm.WLSVM;
 
 /**
  * Class for manage WEKA with java code
@@ -40,8 +39,8 @@ public final class MyWekaManager {
      */
     public MyWekaManager(File dataset) {
         try {
-            this.runs = Config.instance().getNumberWekaRuns();
-            this.folds = 10;
+            this.runs = WEKA_RUNS;
+            this.folds = FOLDS_NUMBER;
             loadInstances(dataset);
             createFile();
         } catch (Exception ex) {
@@ -88,29 +87,6 @@ public final class MyWekaManager {
         }
         return _fMeasure / (runs * folds);
     }
-
-//    public double crossValidationLibSVM() throws Exception {
-//        double _fMeasure = 0;
-//        WLSVM _svm = new WLSVM();
-//        String[] _ops = {"-S", "0", "-K", "2", "-D", "3", "-G", "0", "-R", "0", "-N", "0.5","-M", "40", "-C", "1", "-E", "0.001", "-P", "0.1","-seed","1"};
-//        _svm.setOptions(_ops);
-//        for (int run = 0; run < runs; run++) {
-//            instances.stratify(folds);
-//
-//            for (int fold = 0; fold < folds; fold++) {
-//                System.out.println(" run: " + run + " fold: " + fold);
-//                Instances train = instances.trainCV(folds, fold);
-//                Instances test = instances.testCV(folds, fold);
-//
-//                _svm.buildClassifier(train);
-//                Evaluation evaluation = new Evaluation(train);
-//                evaluation.evaluateModel(_svm, test);
-//                _fMeasure += evaluation.fMeasure(1);
-//            }
-//        }
-//
-//        return _fMeasure / (runs * folds);
-//    }
 
     /**
      * Create the file to write te results from WEKA

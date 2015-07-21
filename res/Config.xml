@@ -49,8 +49,6 @@ and open the template in the editor.
     <partnerProbability>0.5</partnerProbability>
     <parentProbability>0.3</parentProbability>
     <dummyProbability>1</dummyProbability>
-    <!--NUMBER OF WEKA EXECUTIONS-->
-    <numberWekaRuns>5</numberWekaRuns>
     <!--/*PERIOD*/--> 
     <!--/*NUMBER YEARS*/--> 
     <yearsNumber>5</yearsNumber>

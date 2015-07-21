@@ -6,6 +6,7 @@
 package aml.main;
 
 import aml.global.Config;
+import static aml.global.Constant.*;
 import aml.graph.Network;
 import aml.jade.MyPlatformManager;
 import aml.weka.MyWekaManager;
@@ -17,31 +18,56 @@ import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 
 /**
+ * MyApplication class manage the multiple execution of the simulator for
+ * testing with WEKA algorithm
  *
  * @author ddefalco
  */
 public class MyApplication {
-    int COUNTER = 0;
-    int MAX_COUNT = 50;
-    double STEP = 0.01;
+
+    private int counter;
+    private int currstep;
     protected File file;
-    
-    public MyApplication(){}
-          
-    public void exec(double step){
+
+    public MyApplication() {
+        this.counter = 0;
+        this.currstep = 0;
+    }
+
+    /**
+     * Execute the main step of the simulator
+     */
+    public void exec() {
         Network graph = new Network("AML Synthetic DB");
         if (Config.instance().isGuiEnabled()) {
             enableGUI(graph);
         }
         graph.build();
-        double p1 = Config.instance().getParentProbability() + step;
-        Config.instance().setParentProbability(p1);
-        MyPlatformManager f = new MyPlatformManager(graph);        
+        double param;
+        switch (PARAMETER_NAME) {
+            case "P1":
+                param = Config.instance().getParentProbability() + currstep;
+                Config.instance().setParentProbability(param);
+                break;
+            case "P2":
+                param = Config.instance().getPartnerProbability() + currstep;
+                Config.instance().setPartnerProbability(param);
+                break;
+            case "P3":
+                param = Config.instance().getDummyProbability() + currstep;
+                Config.instance().setDummyProbability(param);
+                break;
+            case "P4":
+                param = Config.instance().getLaundererPercentage() + currstep;
+                Config.instance().setLaundererPercentage((int) param);
+                break;
+        }
+        MyPlatformManager f = new MyPlatformManager(graph);
         f.register(this);
         file = f.getTransactionFile();
         f.exec();
     }
-    
+
     /**
      * if GUI is enabled then graph and system.output are rendered in two frame
      */
@@ -63,18 +89,31 @@ public class MyApplication {
         System.setErr(printStream);
         myFrame.getContentPane().add(scroll);
         myFrame.setVisible(true);
-    }       
+    }
 
     public void halt() {
         MyWekaManager weka = new MyWekaManager(file);
-        weka.calculateResults("Parent fraud probability", Config.instance().getParentProbability());
-        if(COUNTER < MAX_COUNT) {
-            COUNTER++;
-            STEP+=0.01;
-            exec(STEP);
+        double param = 0;
+        switch (PARAMETER_NAME) {
+            case "P1":
+                param = Config.instance().getParentProbability();
+                break;
+            case "P2":
+                param = Config.instance().getPartnerProbability();
+                break;
+            case "P3":
+                param = Config.instance().getDummyProbability();
+                break;
+            case "P4":
+                param = Config.instance().getLaundererPercentage();
+                break;
         }
-        else
-        {
+        weka.calculateResults(PARAMETER_NAME, param);
+        if (counter < RANGE_VALUE) {
+            counter++;
+            currstep += STEP_VALUE;
+            exec();
+        } else {
             System.exit(0);
         }
     }

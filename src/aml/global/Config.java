@@ -42,7 +42,6 @@ public class Config {
             bigCompanyMessageMean, bigCompanyMessageStdDev;
     private int laundererPercentage;
     private int yearsNumber;
-    private int numberWekaRuns;
     private WindowSize windowSize;
     private double partnerProbability, dummyProbability, parentProbability;
     private boolean guiEnabled;
@@ -408,15 +407,6 @@ public class Config {
 
     public void setPersistenceMode(PersistenceMode mode) {
         this.persistenceMode = mode;
-    }
-
-    @XmlElement
-    public int getNumberWekaRuns() {
-        return numberWekaRuns;
-    }
-
-    public void setNumberWekaRuns(int numberWekaRuns) {
-        this.numberWekaRuns = numberWekaRuns;
     }
 
     @XmlElement

@@ -37,4 +37,12 @@ public final class Constant {
      */
     public static final String DEFAULT_RANK_ATTRIBUTE = "PageRank";
 
+    /**
+     * WEKA constant parameters for testing simulator
+     */
+    public static final int WEKA_RUNS = 5;
+    public static final int FOLDS_NUMBER = 10;
+    public static final int RANGE_VALUE = 50;
+    public static final double STEP_VALUE = 0.01;
+    public static final String PARAMETER_NAME = "P1";
 }
