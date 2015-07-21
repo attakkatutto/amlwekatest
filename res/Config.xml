@@ -46,8 +46,8 @@ and open the template in the editor.
     <bigCompanyMeanLaunderer>5000</bigCompanyMeanLaunderer>
     <bigCompanyStdDevLaunderer>230</bigCompanyStdDevLaunderer>
     <!--/*FRAUD PROBABILITY*/-->
-    <partnerProbability>0.5</partnerProbability>
-    <parentProbability>0.3</parentProbability>
+    <parentProbability>0.8</parentProbability>
+    <partnerProbability>0.5</partnerProbability>    
     <dummyProbability>1</dummyProbability>
     <!--/*PERIOD*/--> 
     <!--/*NUMBER YEARS*/--> 
