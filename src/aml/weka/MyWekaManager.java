@@ -109,7 +109,7 @@ public final class MyWekaManager {
     public void calculateResults(String paramName, double paramValue) {
         try {
             double _dt = crossValidation(new J48(), new String[]{"-C", "0.25", "-M", "2"});
-            double _svm = crossValidation(new SMO(), new String[]{"-K", "weka.classifiers.functions.supportVector.PolyKernel -E 1.0 -C 250007"});
+            double _svm = crossValidation(new SMO(), null);
             //double _svm = crossValidationLibSVM();
             double _knn = crossValidation(new IBk(), new String[]{"-K", "3", "-W", "0", "-A", "weka.core.neighboursearch.LinearNNSearch -A \"weka.core.EuclideanDistance -R first-last\""});
             writeResult(new Result(paramName, paramValue, _dt, _svm, _knn));

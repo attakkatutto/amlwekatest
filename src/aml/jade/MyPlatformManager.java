@@ -51,11 +51,14 @@ public class MyPlatformManager {
         this.graph = graph;
         this.writer = new SynthDB();
         this.start = System.currentTimeMillis();
+        Runtime rt = Runtime.instance();
+        rt.setCloseVM(true);
         // Get a hold on JADE runtime
         // Create a default profile
         Profile p = new ProfileImpl();
         // Create a new main container (i.e. on this host, port 1099)      
-        mainContainer = Runtime.instance().createMainContainer(p);
+        rt.createMainContainer(p);
+        mainContainer = rt.createAgentContainer(p);
         //initialize the platform handler
         initHandler();
     }
@@ -108,21 +111,18 @@ public class MyPlatformManager {
      */
     public void halt() {
         try {
-            //mainContainer.getPlatformController().kill();
             mainContainer.getPlatformController().kill();
-            //Runtime.instance().shutDown();
+            //mainContainer.kill();
         } catch (ControllerException ex) {
             Logger.getLogger(MyPlatformManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //Runtime.instance().shutDown();
         this.writer.close();
         System.out.println(" - Exit..... ");
         this.end = System.currentTimeMillis();
         System.out.println(" - time elapsed (msec): " + (end - start));
         if (Config.instance().isGuiEnabled()) {
             JOptionPane.showMessageDialog(null, "Simulation finished!", "AML Ranking", JOptionPane.INFORMATION_MESSAGE);
-        }
-        //System.exit(0);   
+        }   
         c.halt();
     }
 
