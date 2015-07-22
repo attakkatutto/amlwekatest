@@ -25,7 +25,7 @@ import javax.swing.ScrollPaneConstants;
 public class MyApplication {
 
     private int counter;
-    private int currstep;
+    private double currstep;
     protected File file;
     private final String PARAMETER_NAME = Config.instance().getParameterName();
     private final int RANGE_VALUE = Config.instance().getRangeValue();
