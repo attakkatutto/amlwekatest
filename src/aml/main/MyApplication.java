@@ -6,7 +6,6 @@
 package aml.main;
 
 import aml.global.Config;
-import static aml.global.Constant.*;
 import aml.graph.Network;
 import aml.jade.MyPlatformManager;
 import aml.weka.MyWekaManager;
@@ -28,6 +27,9 @@ public class MyApplication {
     private int counter;
     private int currstep;
     protected File file;
+    private final String PARAMETER_NAME = Config.instance().getParameterName();
+    private final int RANGE_VALUE = Config.instance().getRangeValue();
+    private final double STEP_VALUE = Config.instance().getStepValue();
 
     public MyApplication() {
         this.counter = 0;

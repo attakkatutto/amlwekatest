@@ -66,4 +66,8 @@ and open the template in the editor.
     <dataBasePassword>password</dataBasePassword>
     <dataBaseConnection>jdbc:derby://localhost:1527/synthetic</dataBaseConnection>
     <dataBaseDriver>org.apache.derby.jdbc.ClientDriver</dataBaseDriver>
+    <!--/*WEKA PARAMETERS*/-->
+    <parameterName>P2</parameterName>
+    <rangeValue>50</rangeValue>
+    <stepValue>0.01</stepValue>
 </config>

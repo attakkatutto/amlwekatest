@@ -49,6 +49,9 @@ public class Config {
             dataBaseUsername, dataBasePassword,
             dataBaseConnection, dataBaseDriver;
     private PersistenceMode persistenceMode;
+    private String parameterName;
+    private int rangeValue;
+    private double stepValue;
 
     /**
      * Singleton instance of the class Config rapresents the configuration of
@@ -481,4 +484,32 @@ public class Config {
         this.dataBaseDriver = dataBaseDriver;
     }
 
+    @XmlElement
+    public String getParameterName() {
+        return parameterName;
+    }
+
+    public void setParameterName(String parameterName) {
+        this.parameterName = parameterName;
+    }
+
+    @XmlElement
+    public int getRangeValue() {
+        return rangeValue;
+    }
+
+    public void setRangeValue(int rangeValue) {
+        this.rangeValue = rangeValue;
+    }
+
+    @XmlElement
+    public double getStepValue() {
+        return stepValue;
+    }
+
+    public void setStepValue(double stepValue) {
+        this.stepValue = stepValue;
+    }
+
+    
 }

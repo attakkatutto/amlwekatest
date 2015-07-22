@@ -56,7 +56,14 @@ public final class MyWekaManager {
     public void loadInstances(File dataset) throws Exception {
         CSVLoader loader = new CSVLoader();
         loader.setSource(dataset);
+        /**
+         * Load dataset in instances variable
+         */
         instances = loader.getDataSet();
+        /**
+         * Delete the first attribute of dataset
+         * it's the transaction id attribute
+         */
         instances.deleteAttributeAt(0);
         instances.setClassIndex(instances.numAttributes() - 1);
     }
@@ -108,10 +115,12 @@ public final class MyWekaManager {
      */
     public void calculateResults(String paramName, double paramValue) {
         try {
-            double _dt = crossValidation(new J48(), new String[]{"-C", "0.25", "-M", "2"});
-            double _svm = crossValidation(new SMO(), null);
-            //double _svm = crossValidationLibSVM();
-            double _knn = crossValidation(new IBk(), new String[]{"-K", "3", "-W", "0", "-A", "weka.core.neighboursearch.LinearNNSearch -A \"weka.core.EuclideanDistance -R first-last\""});
+            System.out.println("- Start algorithm J48");
+            double _dt = crossValidation(new J48(), null);
+            System.out.println("- Start algorithm SMO");
+            double _svm = crossValidation(new SMO(), null); 
+            System.out.println("- Start algorithm KNN");
+            double _knn = crossValidation(new IBk(), new String[]{"-K", "3"});
             writeResult(new Result(paramName, paramValue, _dt, _svm, _knn));
         } catch (Exception ex) {
             Logger.getLogger(MyWekaManager.class.getName()).log(Level.SEVERE, null, ex);
