@@ -57,6 +57,7 @@ public final class MyWekaManager {
         CSVLoader loader = new CSVLoader();
         loader.setSource(dataset);
         instances = loader.getDataSet();
+        instances.deleteAttributeAt(0);
         instances.setClassIndex(instances.numAttributes() - 1);
     }
 
