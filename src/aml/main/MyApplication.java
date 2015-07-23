@@ -61,22 +61,17 @@ public class MyApplication {
             enableGUI(graph);
         }
         graph.build();
-        //double param;
         switch (PARAMETER_NAME) {
             case "P1":
-                //param = Config.instance().getParentProbability() + currstep;
                 Config.instance().setParentProbability(currstep);
                 break;
             case "P2":
-                //param = Config.instance().getPartnerProbability() + currstep;
                 Config.instance().setPartnerProbability(currstep);
                 break;
             case "P3":
-                //param = Config.instance().getDummyProbability() + currstep;
                 Config.instance().setDummyProbability(currstep);
                 break;
             case "P4":
-                //param = Config.instance().getLaundererPercentage() + currstep;
                 Config.instance().setLaundererPercentage((int) currstep);
                 break;
         }
@@ -109,6 +104,9 @@ public class MyApplication {
         myFrame.setVisible(true);
     }
 
+    /**
+     * Stop the application if the cycle finishes
+     */
     public void halt() {
         MyWekaManager weka = new MyWekaManager(file);
         double param = 0;
