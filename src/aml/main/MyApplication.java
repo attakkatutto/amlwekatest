@@ -31,9 +31,25 @@ public class MyApplication {
     private final int RANGE_VALUE = Config.instance().getRangeValue();
     private final double STEP_VALUE = Config.instance().getStepValue();
 
+    /**
+     * Constructor for MyApplication class
+     */
     public MyApplication() {
-        this.counter = 0;
-        this.currstep = 0;
+        this.counter = 0;        
+        switch (PARAMETER_NAME) {
+            case "P1":
+                this.currstep  = Config.instance().getParentProbability();
+                break;
+            case "P2":
+                this.currstep  = Config.instance().getPartnerProbability();
+                break;
+            case "P3":
+                this.currstep  = Config.instance().getDummyProbability();
+                break;
+            case "P4":
+                this.currstep  = Config.instance().getLaundererPercentage();
+                break;
+        }
     }
 
     /**
@@ -45,23 +61,23 @@ public class MyApplication {
             enableGUI(graph);
         }
         graph.build();
-        double param;
+        //double param;
         switch (PARAMETER_NAME) {
             case "P1":
-                param = Config.instance().getParentProbability() + currstep;
-                Config.instance().setParentProbability(param);
+                //param = Config.instance().getParentProbability() + currstep;
+                Config.instance().setParentProbability(currstep);
                 break;
             case "P2":
-                param = Config.instance().getPartnerProbability() + currstep;
-                Config.instance().setPartnerProbability(param);
+                //param = Config.instance().getPartnerProbability() + currstep;
+                Config.instance().setPartnerProbability(currstep);
                 break;
             case "P3":
-                param = Config.instance().getDummyProbability() + currstep;
-                Config.instance().setDummyProbability(param);
+                //param = Config.instance().getDummyProbability() + currstep;
+                Config.instance().setDummyProbability(currstep);
                 break;
             case "P4":
-                param = Config.instance().getLaundererPercentage() + currstep;
-                Config.instance().setLaundererPercentage((int) param);
+                //param = Config.instance().getLaundererPercentage() + currstep;
+                Config.instance().setLaundererPercentage((int) currstep);
                 break;
         }
         MyPlatformManager f = new MyPlatformManager(graph);
