@@ -85,7 +85,7 @@ public class Result {
         this.knn = knn;
     }
 
-    public double getRandomFoirest() {
+    public double getRandomForest() {
         return rf;
     }
 

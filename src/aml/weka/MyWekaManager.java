@@ -32,7 +32,7 @@ public final class MyWekaManager {
     private int runs;
     private int folds;
     private BufferedWriter bwr;
-    private final String ROW_RESULT_FILE = " %s, %s, %s, %s, %s \n";
+    private final String ROW_RESULT_FILE = " %s, %s, %s, %s, %s, %s \n";
 
     /**
      * Constructor with file that contains dataset
@@ -123,7 +123,7 @@ public final class MyWekaManager {
             System.out.println("- Start algorithm KNN");
             double _knn = crossValidation(new IBk(), new String[]{"-K", "3"});
             System.out.println("- Start algorithm Random Forest -");
-            double _rf = crossValidation(new RandomForest(),new String[]{});
+            double _rf = crossValidation(new RandomForest(),new String[]{"-I", "100", "-K", "0", "-S", "1"});
             writeResult(new Result(paramName, paramValue, _dt, _svm, _knn, _rf));
         } catch (Exception ex) {
             Logger.getLogger(MyWekaManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -137,7 +137,7 @@ public final class MyWekaManager {
     private void writeResult(Result r) {
         if (bwr != null) {
             try {
-                bwr.append(String.format(ROW_RESULT_FILE, r.getParamName(), r.getParamValue(), r.getDecisiontree(), r.getSvm(), r.getKnn()));
+                bwr.append(String.format(ROW_RESULT_FILE, r.getParamName(), r.getParamValue(), r.getDecisiontree(), r.getSvm(), r.getKnn(), r.getRandomForest()));
                 bwr.close();
             } catch (IOException ex) {
                 Logger.getLogger(MyWekaManager.class.getName()).log(Level.SEVERE, null, ex);
