@@ -16,6 +16,7 @@ public class Result {
     private double dt;
     private double svm;
     private double knn;
+    private double rf;
     
     /**
      * Constructor with no params
@@ -33,13 +34,15 @@ public class Result {
      * @param dt decision tree fmeasure
      * @param svm support vector machine fmeasure
      * @param knn k-nearest neighbour fmeasure
+     * @param rf random forest fmeasure
      */
-    public Result(String paramName, double paramValue, double dt, double svm, double knn) {
+    public Result(String paramName, double paramValue, double dt, double svm, double knn, double rf) {
         this.paramName = paramName;
         this.paramValue = paramValue;
         this.dt = dt;
         this.svm = svm;
         this.knn = knn;
+        this.rf = rf;
     }
 
     public String getParamName() {
@@ -81,5 +84,12 @@ public class Result {
     public void setKnn(double knn) {
         this.knn = knn;
     }
-            
+
+    public double getRandomFoirest() {
+        return rf;
+    }
+
+    public void setRandomForest(double rf) {
+        this.rf = rf;
+    }        
 }

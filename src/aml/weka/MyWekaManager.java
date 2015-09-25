@@ -18,6 +18,7 @@ import weka.classifiers.Evaluation;
 import weka.classifiers.functions.SMO;
 import weka.classifiers.lazy.IBk;
 import weka.classifiers.trees.J48;
+import weka.classifiers.trees.RandomForest;
 import weka.core.Instances;
 import weka.core.converters.CSVLoader;
 
@@ -121,7 +122,9 @@ public final class MyWekaManager {
             double _svm = crossValidation(new SMO(), null); 
             System.out.println("- Start algorithm KNN");
             double _knn = crossValidation(new IBk(), new String[]{"-K", "3"});
-            writeResult(new Result(paramName, paramValue, _dt, _svm, _knn));
+            System.out.println("- Start algorithm Random Forest -");
+            double _rf = crossValidation(new RandomForest(),new String[]{});
+            writeResult(new Result(paramName, paramValue, _dt, _svm, _knn, _rf));
         } catch (Exception ex) {
             Logger.getLogger(MyWekaManager.class.getName()).log(Level.SEVERE, null, ex);
         }
