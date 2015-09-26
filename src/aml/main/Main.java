@@ -23,4 +23,19 @@ public class Main {
         ma.exec();
     }
     
+    /**
+     * Entry point of the AML Synthetic data generator
+     *
+     * @param args
+     */
+//    public static void main(String[] args) {
+//        Network graph = new Network("AML Synthetic DB");
+//        if (Config.instance().isGuiEnabled()) {
+//            enableGUI(graph);
+//        }
+//        graph.build();
+//        MyPlatformManager f = new MyPlatformManager(graph);
+//        f.exec();
+//    }
+    
 }
