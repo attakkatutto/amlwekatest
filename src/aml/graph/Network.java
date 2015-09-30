@@ -10,6 +10,7 @@ import aml.global.Config;
 import aml.global.Enums;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -17,6 +18,10 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.ScrollPaneConstants;
 import org.graphstream.algorithm.generator.BarabasiAlbertGenerator;
 import org.graphstream.graph.EdgeFactory;
 import org.graphstream.graph.Graph;
@@ -271,5 +276,27 @@ public final class Network extends SingleGraph {
             _index1++;
         }
     }
+    
+    /**
+     * if GUI is enabled then graph and system.output are rendered in two frame
+     */
+    public void enableGUI() {
+        this.display(true);
 
+        JFrame myFrame = new JFrame("SystemMessages");
+        myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        myFrame.setSize(700, 400);
+
+        JTextArea textArea = new JTextArea();
+        textArea.setEditable(false);
+
+        JScrollPane scroll = new JScrollPane(textArea);
+        scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+        PrintStream printStream = new PrintStream(new MyOutputStream(textArea));
+        System.setOut(printStream);
+        System.setErr(printStream);
+        myFrame.getContentPane().add(scroll);
+        myFrame.setVisible(true);
+    }
 }

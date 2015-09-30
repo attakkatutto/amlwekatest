@@ -10,11 +10,6 @@ import aml.graph.Network;
 import aml.jade.MyPlatformManager;
 import aml.weka.MyWekaManager;
 import java.io.File;
-import java.io.PrintStream;
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.ScrollPaneConstants;
 
 /**
  * MyApplication class manage the multiple execution of the simulator for
@@ -58,7 +53,7 @@ public class MyApplication {
     public void exec() {
         Network graph = new Network("AML Synthetic DB");
         if (Config.instance().isGuiEnabled()) {
-            enableGUI(graph);
+            graph.enableGUI();
         }
         graph.build();
         switch (PARAMETER_NAME) {
@@ -79,30 +74,7 @@ public class MyApplication {
         f.register(this);
         file = f.getTransactionFile();
         f.exec();
-    }
-
-    /**
-     * if GUI is enabled then graph and system.output are rendered in two frame
-     */
-    private void enableGUI(Network graph) {
-        graph.display(true);
-
-        JFrame myFrame = new JFrame("SystemMessages");
-        myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        myFrame.setSize(700, 400);
-
-        JTextArea textArea = new JTextArea();
-        textArea.setEditable(false);
-
-        JScrollPane scroll = new JScrollPane(textArea);
-        scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-
-        PrintStream printStream = new PrintStream(new MyOutputStream(textArea));
-        System.setOut(printStream);
-        System.setErr(printStream);
-        myFrame.getContentPane().add(scroll);
-        myFrame.setVisible(true);
-    }
+    }    
 
     /**
      * Stop the application if the cycle finishes

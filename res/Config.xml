@@ -8,7 +8,7 @@ and open the template in the editor.
 
 <config>
     <!--/*NETWORK CONFIG*/-->
-    <numberOfNode>20</numberOfNode>
+    <numberOfNode>50</numberOfNode>
     <maxEdgesPerStep>3</maxEdgesPerStep>
     <maxNumberPartners>5</maxNumberPartners>
     <maxNumberParents>4</maxNumberParents>
@@ -16,9 +16,9 @@ and open the template in the editor.
     <!--P4 LAUNDERER PERCENTAGE-->
     <laundererPercentage>5</laundererPercentage>
     <!--/*0:FIXED 1:VARIABLE/-->
-    <fraudPotential>0</fraudPotential>
+    <fraudPotential>0</fraudPotential>    
     <!--/*ENABLE GUI true/false*/-->
-    <guiEnabled>false</guiEnabled>
+    <guiEnabled>false</guiEnabled>    
     <!--/*NUMBER OF MESSAGES TO OTHER NODES*/-->
     <employeeMessageMean>10</employeeMessageMean>
     <employeeMessageStdDev>3</employeeMessageStdDev>
@@ -48,7 +48,7 @@ and open the template in the editor.
     <bigCompanyStdDevLaunderer>230</bigCompanyStdDevLaunderer>
     <!--/*FRAUD PROBABILITY P1 0.8 - P2 0.5 - P3 1*/-->
     <parentProbability>0.8</parentProbability>
-    <partnerProbability>0.1</partnerProbability>    
+    <partnerProbability>0.5</partnerProbability>    
     <dummyProbability>1</dummyProbability>
     <!--/*PERIOD*/--> 
     <!--/*NUMBER YEARS*/--> 

@@ -42,4 +42,10 @@ public final class Constant {
      */
     public static final int WEKA_RUNS = 5;
     public static final int FOLDS_NUMBER = 10;
+    
+    /**
+     * 0 Simulate data
+     * 1 Simulate data and Weka algorithm
+     */
+    public static final int SIMULATOR_MODE = 0;
 }

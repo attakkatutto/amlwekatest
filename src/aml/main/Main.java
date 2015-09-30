@@ -5,6 +5,11 @@
  */
 package aml.main;
 
+import aml.global.Config;
+import static aml.global.Constant.*;
+import aml.graph.Network;
+import aml.jade.MyPlatformManager;
+
 /**
  * Main class for the network
  *
@@ -18,24 +23,30 @@ public class Main {
      * @param args
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        MyApplication ma = new MyApplication();
-        ma.exec();
+        switch(SIMULATOR_MODE) {
+            case 0: mainSimulator();
+            case 1: mainSimulatorWekaTest();
+        }      
     }
     
     /**
-     * Entry point of the AML Synthetic data generator
-     *
-     * @param args
+     * Simulate data
      */
-//    public static void main(String[] args) {
-//        Network graph = new Network("AML Synthetic DB");
-//        if (Config.instance().isGuiEnabled()) {
-//            enableGUI(graph);
-//        }
-//        graph.build();
-//        MyPlatformManager f = new MyPlatformManager(graph);
-//        f.exec();
-//    }
+    public static void mainSimulator() {
+        Network graph = new Network("AML Synthetic DB");
+        if (Config.instance().isGuiEnabled()) {
+            graph.enableGUI();
+        }
+        graph.build();
+        MyPlatformManager f = new MyPlatformManager(graph);
+        f.exec();
+    }
     
+    /**
+     * Weka test of the simulated data
+     */
+    public static void mainSimulatorWekaTest(){
+        MyApplication ma = new MyApplication();
+        ma.exec();
+    }
 }

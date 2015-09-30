@@ -1,4 +1,4 @@
-package aml.main;
+package aml.graph;
 
 import java.io.IOException;
 import java.io.OutputStream;
