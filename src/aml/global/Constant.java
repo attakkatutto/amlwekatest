@@ -47,5 +47,5 @@ public final class Constant {
      * 0 Simulate data
      * 1 Simulate data and Weka algorithm
      */
-    public static final int SIMULATOR_MODE = 0;
+    public static final int SIMULATOR_MODE = 1;
 }

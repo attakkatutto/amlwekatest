@@ -29,6 +29,7 @@ import weka.core.converters.CSVLoader;
 public final class MyWekaManager {
 
     private Instances instances;
+    private int classIndex;
     private int runs;
     private int folds;
     private BufferedWriter bwr;
@@ -42,6 +43,7 @@ public final class MyWekaManager {
         try {
             this.runs = WEKA_RUNS;
             this.folds = FOLDS_NUMBER;
+            this.classIndex = 0;
             loadInstances(dataset);
             createFile();
         } catch (Exception ex) {
@@ -67,6 +69,7 @@ public final class MyWekaManager {
          */
         instances.deleteAttributeAt(0);
         instances.setClassIndex(instances.numAttributes() - 1);
+        classIndex = getClassNOIndex();
     }
 
     /**
@@ -145,5 +148,17 @@ public final class MyWekaManager {
                 instances.clear();
             }
         }
+    }
+    
+    /**
+     * Get index of fraud class attribute (HONEST = 'NO')
+     * @return index of Fraud Class
+     */
+    private int getClassNOIndex(){
+        int _ret = 0;
+        for(int i = 0; i < instances.numClasses(); i++) {
+         if (instances.classAttribute().value(i).trim().equals("NO")) _ret = i;
+       }
+        return _ret;
     }
 }

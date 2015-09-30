@@ -23,10 +23,8 @@ public class Main {
      * @param args
      */
     public static void main(String[] args) {
-        switch(SIMULATOR_MODE) {
-            case 0: mainSimulator();
-            case 1: mainSimulatorWekaTest();
-        }      
+        if (SIMULATOR_MODE == 0) mainSimulator(); 
+        else mainSimulatorWekaTest();      
     }
     
     /**
