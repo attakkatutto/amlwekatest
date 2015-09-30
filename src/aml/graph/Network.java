@@ -177,6 +177,7 @@ public final class Network extends SingleGraph {
                             node.addAttribute("ui.class", "company");
                         }
                     }
+                    /*Slow render nodes*/
                     Thread.sleep(50);
                 }
             } catch (Exception ex) {
