@@ -28,7 +28,6 @@ import weka.core.converters.CSVLoader;
  */
 public final class MyWekaManager {
 
-    private Instances instances;
     private int classIndex;
     private int runs;
     private int folds;
@@ -37,39 +36,16 @@ public final class MyWekaManager {
 
     /**
      * Constructor with file that contains dataset
-     * @param dataset File with instances to analyze
      */
-    public MyWekaManager(File dataset) {
+    public MyWekaManager() {
         try {
             this.runs = WEKA_RUNS;
             this.folds = FOLDS_NUMBER;
             this.classIndex = 0;
-            loadInstances(dataset);
             createFile();
         } catch (Exception ex) {
             Logger.getLogger(MyWekaManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    /**
-     * Load the instances of dataset
-     * @param dataset File contains data
-     * @throws Exception 
-     */
-    public void loadInstances(File dataset) throws Exception {
-        CSVLoader loader = new CSVLoader();
-        loader.setSource(dataset);
-        /**
-         * Load dataset in instances variable
-         */
-        instances = loader.getDataSet();
-        /**
-         * Delete the first attribute of dataset
-         * it's the transaction id attribute
-         */
-        instances.deleteAttributeAt(0);
-        instances.setClassIndex(instances.numAttributes() - 1);
-        classIndex = getClassNOIndex();
     }
 
     /**
@@ -80,7 +56,22 @@ public final class MyWekaManager {
      * @return double fMeasure value
      * @throws Exception 
      */
-    public double crossValidation(AbstractClassifier classifier, String[] options) throws Exception {
+    protected double crossValidation(final File dataset, AbstractClassifier classifier, String[] options) throws Exception {
+        
+        CSVLoader loader = new CSVLoader();
+        loader.setSource(dataset);
+        /**
+         * Load dataset in instances variable
+         */
+        Instances instances = loader.getDataSet();
+        /**
+         * Delete the first attribute of dataset
+         * it's the transaction id attribute
+         */
+        instances.deleteAttributeAt(0);
+        instances.setClassIndex(instances.numAttributes() - 1);
+        classIndex = getClassNOIndex(instances);
+        
         double _fMeasure = 0;
         if (options != null) {
             classifier.setOptions(options);
@@ -117,16 +108,16 @@ public final class MyWekaManager {
      * @param paramName
      * @param paramValue 
      */
-    public void calculateResults(String paramName, double paramValue) {
+    public void calculateResults(File dataset,String paramName, double paramValue) {
         try {
             System.out.println("- Start algorithm J48");
-            double _dt = crossValidation(new J48(), null);
+            double _dt = crossValidation(dataset,new J48(), null);
             System.out.println("- Start algorithm SMO");
-            double _svm = crossValidation(new SMO(), null); 
+            double _svm = crossValidation(dataset,new SMO(), null); 
             System.out.println("- Start algorithm KNN");
-            double _knn = crossValidation(new IBk(), new String[]{"-K", "3"});
+            double _knn = crossValidation(dataset,new IBk(), new String[]{"-K", "3"});
             System.out.println("- Start algorithm Random Forest -");
-            double _rf = crossValidation(new RandomForest(),new String[]{"-I", "100", "-K", "0", "-S", "1"});
+            double _rf = crossValidation(dataset,new RandomForest(),new String[]{"-I", "100", "-K", "0", "-S", "1"});
             writeResult(new Result(paramName, paramValue, _dt, _svm, _knn, _rf));
         } catch (Exception ex) {
             Logger.getLogger(MyWekaManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -144,9 +135,7 @@ public final class MyWekaManager {
                 bwr.close();
             } catch (IOException ex) {
                 Logger.getLogger(MyWekaManager.class.getName()).log(Level.SEVERE, null, ex);
-            } finally {
-                instances.clear();
-            }
+            } 
         }
     }
     
@@ -154,7 +143,7 @@ public final class MyWekaManager {
      * Get index of fraud class attribute (HONEST = 'NO')
      * @return index of Fraud Class
      */
-    private int getClassNOIndex(){
+    private int getClassNOIndex(Instances instances){
         int _ret = 0;
         for(int i = 0; i < instances.numClasses(); i++) {
          if (instances.classAttribute().value(i).trim().equals("NO")) _ret = i;
