@@ -29,8 +29,6 @@ import weka.core.converters.CSVLoader;
 public final class MyWekaManager {
 
     private int classIndex;
-    private int runs;
-    private int folds;
     private BufferedWriter bwr;
     private final String ROW_RESULT_FILE = " %s, %s, %s, %s, %s, %s \n";
 
@@ -39,8 +37,6 @@ public final class MyWekaManager {
      */
     public MyWekaManager() {
         try {
-            this.runs = WEKA_RUNS;
-            this.folds = FOLDS_NUMBER;
             this.classIndex = 0;
             createFile();
         } catch (Exception ex) {
@@ -51,6 +47,7 @@ public final class MyWekaManager {
     /**
      * WEKA cross validation classifier method that calculate the
      * f-Measure of the model
+     * @param dataset
      * @param classifier Abstract classifier that build model
      * @param options for the cassifier
      * @return double fMeasure value
@@ -76,19 +73,19 @@ public final class MyWekaManager {
         if (options != null) {
             classifier.setOptions(options);
         }
-        for (int run = 0; run < runs; run++) {
-            instances.stratify(folds);
-            for (int fold = 0; fold < folds; fold++) {
+        for (int run = 0; run < WEKA_RUNS; run++) {
+            instances.stratify(FOLDS_NUMBER);
+            for (int fold = 0; fold < FOLDS_NUMBER; fold++) {
                 System.out.println(" run: " + run + " fold: " + fold);
-                Instances _train = instances.trainCV(folds, fold);
-                Instances _test = instances.testCV(folds, fold);
+                Instances _train = instances.trainCV(FOLDS_NUMBER, fold);
+                Instances _test = instances.testCV(FOLDS_NUMBER, fold);
                 classifier.buildClassifier(_train);
                 Evaluation _evaluation = new Evaluation(_train);
                 _evaluation.evaluateModel(classifier, _test);                
                 _fMeasure += _evaluation.fMeasure(1);
             }
         }
-        return _fMeasure / (runs * folds);
+        return _fMeasure / (WEKA_RUNS * FOLDS_NUMBER);
     }
 
     /**
