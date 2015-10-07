@@ -27,8 +27,7 @@ import weka.core.converters.CSVLoader;
  * @author ddefalco
  */
 public final class MyWekaManager {
-
-    private int classIndex;
+   
     private BufferedWriter bwr;
     private final String ROW_RESULT_FILE = " %s, %s, %s, %s, %s, %s \n";
 
@@ -37,7 +36,6 @@ public final class MyWekaManager {
      */
     public MyWekaManager() {
         try {
-            this.classIndex = 0;
             createFile();
         } catch (Exception ex) {
             Logger.getLogger(MyWekaManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -67,7 +65,7 @@ public final class MyWekaManager {
          */
         instances.deleteAttributeAt(0);
         instances.setClassIndex(instances.numAttributes() - 1);
-        classIndex = getClassNOIndex(instances);
+        int classIndex = getClassNOIndex(instances);
         
         double _fMeasure = 0;
         if (options != null) {
