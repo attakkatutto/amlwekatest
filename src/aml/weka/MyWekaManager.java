@@ -82,7 +82,7 @@ public final class MyWekaManager {
                 classifier.buildClassifier(_train);
                 Evaluation _evaluation = new Evaluation(_train);
                 _evaluation.evaluateModel(classifier, _test);                
-                _fMeasure += _evaluation.fMeasure(1);
+                _fMeasure += _evaluation.fMeasure(classIndex);
             }
         }
         return _fMeasure / (WEKA_RUNS * FOLDS_NUMBER);
@@ -102,6 +102,7 @@ public final class MyWekaManager {
     /**
      * Calculate the f-Measure results from building models with
      * J48 - SMO - IBK algorithms 
+     * @param dataset
      * @param paramName
      * @param paramValue 
      */
