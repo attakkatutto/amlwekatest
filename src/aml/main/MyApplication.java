@@ -8,7 +8,6 @@ package aml.main;
 import aml.global.Config;
 import aml.graph.Network;
 import aml.jade.MyPlatformManager;
-import aml.weka.MyWekaManager;
 import java.io.File;
 
 /**
@@ -80,23 +79,23 @@ public class MyApplication {
      * Stop the application if the cycle finishes
      */
     public void halt() {
-        MyWekaManager weka = new MyWekaManager();
-        double param = 0;
-        switch (PARAMETER_NAME) {
-            case "P1":
-                param = Config.instance().getParentProbability();
-                break;
-            case "P2":
-                param = Config.instance().getPartnerProbability();
-                break;
-            case "P3":
-                param = Config.instance().getDummyProbability();
-                break;
-            case "P4":
-                param = Config.instance().getLaundererPercentage();
-                break;
-        }
-        weka.calculateResults(file,PARAMETER_NAME, param);
+        //MyWekaManager weka = new MyWekaManager();
+        //double param = 0;
+//        switch (PARAMETER_NAME) {
+//            case "P1":
+//                param = Config.instance().getParentProbability();
+//                break;
+//            case "P2":
+//                param = Config.instance().getPartnerProbability();
+//                break;
+//            case "P3":
+//                param = Config.instance().getDummyProbability();
+//                break;
+//            case "P4":
+//                param = Config.instance().getLaundererPercentage();
+//                break;
+//        }
+        //weka.calculateResults(file,PARAMETER_NAME, param);
         if (counter < RANGE_VALUE) {
             counter++;
             currstep += STEP_VALUE;
